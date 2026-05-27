@@ -7,7 +7,7 @@ import RepoCard from "./components/RepoCard";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [repo, setRepo] = useState([]);
+  const [repos, setRepos] = useState([]);
 
   const handleSearch = async (username) => {
   setLoading(true);
@@ -22,6 +22,7 @@ function App() {
     setUser(data);
 
     // Repo Data
+  
     const repoResponse = await fetch(
       `https://api.github.com/users/${username}/repos`
     );
@@ -91,9 +92,11 @@ function App() {
                 <h2 className="text-2xl font-bold mb-6">
                   Repositories
                 </h2>
-                  <div>
-                  <RepoCard repo = {repo}/>
-                  </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+  {repos.map((repo) => (
+    <RepoCard key={repo.id} repo={repo} />
+  ))}
+</div>
               </div>
             </div>
 
